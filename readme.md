@@ -6,13 +6,18 @@ For use with rsync type backup applications like [rsync](https://rsync.samba.org
 
 
 ####Basic usage
-* Clone Repo
-* Add authorized_keys file into cloned repo directory
-* build
+* Clone this repo
+* Add `authorized_keys` file into cloned repo directory
+* Build.
 ```
-docker build --no-cache --rm -t "rsyncd-image" .
+# This will build the docker image and tag it as "ssh-rsync-image"
+docker build --no-cache --rm -t "ssh-rsync-image" .
 ```
-* run
+* Run.
 ```
-docker run -itdP -p 2222:22 -v /data/docker/backup:/data/backup --name rsyncd-server rsyncd-image
+# This will
+# * Create a background running container named "ssh-rsync-server"
+# * Expose and publish guest port 22 to host port 2222
+# * Bind host directory /data/docker/backup to docker directory /data/backup
+docker run -itdP -p 2222:22 -v /data/docker/backup:/data/backup --name ssh-rsync-server ssh-rsync-image
 ```
